@@ -1,0 +1,41 @@
+"use strict";
+
+module.exports = {
+  async up(queryInterface) {
+
+    await queryInterface.bulkInsert("Students", [
+
+      {
+        name: "Tanishk",
+        age: 20,
+        course: "BCA",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+      {
+        name: "Rahul",
+        age: 21,
+        course: "BBA",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+      {
+        name: "Aman",
+        age: 20,
+        course: "BCA",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+
+    ]);
+
+  },
+
+  async down(queryInterface) {
+
+    await queryInterface.bulkDelete("Students", null, {});
+
+  }
+};
