@@ -1,0 +1,63 @@
+const express = require("express");
+const { Sequelize } = require("sequelize");
+const { Student } = require("./models");
+
+const app = express();
+
+app.use(express.json());
+
+const sequelize = new Sequelize(
+  "college",
+  "root",
+  "password",
+  {
+    host: "127.0.0.1",
+    dialect: "mysql"
+  }
+);
+
+// GET students
+app.get("/students", async (req, res) => {
+
+  try {
+
+    const students = await Student.findAll();
+
+    res.json(students);
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: error.message
+    });
+
+  }
+
+});
+
+// POST student
+app.post("/students", async (req, res) => {
+
+  try {
+
+    const student = await Student.create({
+      name: req.body.name,
+      age: req.body.age,
+      course: req.body.course
+    });
+
+    res.status(201).json(student);
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: error.message
+    });
+
+  }
+
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
